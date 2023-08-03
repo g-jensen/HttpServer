@@ -2,7 +2,7 @@
 
 Java HTTP Server from scratch (not using `java.net.http` or any external libraries)
 
-To install, download the `HttpServer.jar` from releases and add it to your project
+To install, download the `HttpServer.jar` from [releases](https://github.com/g-jensen/HttpServer/releases/tag/v1.0.0) and add it to your project
 
 A simple example app:
 ```java

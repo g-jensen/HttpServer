@@ -36,4 +36,25 @@ class HttpMessageTest {
         HttpMessage m = new HttpMessage(in1);
         assertEquals(s1,m.toString());
     }
+
+    @Test
+    void checksEqualityWithoutBody() throws BadRequestException {
+        HttpMessage m1 = new HttpMessage("GET / HTTP/1.1\r\n" +
+                "Host: 127.0.0.1\r\n\r\n");
+        HttpMessage m2 = new HttpMessage("GET / HTTP/1.1\r\n" +
+                "Host: 127.0.0.1\r\n\r\n");
+        assertEquals(m1,m2);
+    }
+
+    @Test
+    void checksEqualityWithBody() {
+        HttpMessage m1 = new HttpMessage();
+        m1.setStartLine("GET / HTTP/1.1");
+        m1.putHeader("Host","greg");
+        m1.setBody(new byte[]{2});
+        HttpMessage m2 = new HttpMessage();
+        m2.putHeader("Host","greg");
+        m2.setBody(new byte[]{1});
+        assertNotEquals(m1,m2);
+    }
 }

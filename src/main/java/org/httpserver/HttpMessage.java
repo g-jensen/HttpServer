@@ -33,6 +33,13 @@ public class HttpMessage {
             str += new String(body);
         return str;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {return true;}
+        if (!(obj instanceof HttpMessage)) {return false;}
+        HttpMessage m = (HttpMessage) obj;
+        return m.toString().equals(this.toString());
+    }
     public String getStartLineAndHeaders() {
         return  startLine + "\r\n" +
                 headerFields.keySet().stream()

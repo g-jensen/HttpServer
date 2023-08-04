@@ -38,7 +38,7 @@ class HttpMessageTest {
     }
 
     @Test
-    void checksEqualityWithoutBody() throws BadRequestException {
+    void checksEqualityWithString() throws BadRequestException {
         HttpMessage m1 = new HttpMessage("GET / HTTP/1.1\r\n" +
                 "Host: 127.0.0.1\r\n\r\n");
         HttpMessage m2 = new HttpMessage("GET / HTTP/1.1\r\n" +
@@ -47,7 +47,7 @@ class HttpMessageTest {
     }
 
     @Test
-    void checksEqualityWithBody() {
+    void checksEqualityWithBytes() {
         HttpMessage m1 = new HttpMessage();
         m1.setStartLine("GET / HTTP/1.1");
         m1.putHeader("Host","greg");
@@ -56,5 +56,12 @@ class HttpMessageTest {
         m2.putHeader("Host","greg");
         m2.setBody(new byte[]{1});
         assertNotEquals(m1,m2);
+    }
+
+    @Test
+    void checksEqualityWithNonInstance() throws BadRequestException {
+        HttpMessage m1 = new HttpMessage("GET / HTTP/1.1\r\n" +
+                "Host: 127.0.0.1\r\n\r\n");
+        assertNotEquals(m1,new Object());
     }
 }

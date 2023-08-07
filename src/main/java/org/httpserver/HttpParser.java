@@ -30,19 +30,19 @@ public class HttpParser {
             throw new BadRequestException();
         }
     }
-    private void parseURI(String startLine) {
+    public void parseURI(String startLine) {
         int i = startLine.indexOf('/');
         if (i == -1) return;
         String s = startLine.substring(i+1);
         int k = s.indexOf(' ');
         message.setURI(s.substring(0,k));
     }
-    private void parseMethod(String startLine) {
+    public void parseMethod(String startLine) {
         int i = startLine.indexOf(' ');
         if (i == -1) return;
         message.setMethod(startLine.substring(0,i));
     }
-    private void parseHeader(String line) throws BadRequestException {
+    public void parseHeader(String line) throws BadRequestException {
         if (line.startsWith(" ")) throw new BadRequestException();
         int i = line.indexOf(':');
         if (i < 1) return;
@@ -51,7 +51,7 @@ public class HttpParser {
         String value = line.substring(i+1).trim();
         message.putHeader(key,value);
     }
-    private void parseBody(BufferedReader reader) throws BadRequestException {
+    public void parseBody(BufferedReader reader) throws BadRequestException {
         if (!message.getHeaderFields().containsKey("Content-Length"))
             return;
         try {

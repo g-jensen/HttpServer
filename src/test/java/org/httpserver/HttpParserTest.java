@@ -108,15 +108,25 @@ class HttpParserTest {
 
     @Test
     void parsesMethod() throws BadRequestException {
-        HttpMessage m = new HttpMessage();
-        HttpParser p = new HttpParser(m);
+        HttpMessage m1 = new HttpMessage();
+        HttpParser p1 = new HttpParser(m1);
 
         String s1 = "GET /hello HTTP/1.1\r\n" +
                 "Host: Goodbye\r\n" +
                 "\r\n";
         InputStream in1 = new ByteArrayInputStream(s1.getBytes());
-        p.parseFromStream(in1);
-        assertEquals("GET",m.getMethod());
+        p1.parseFromStream(in1);
+        assertEquals("GET",m1.getMethod());
+
+        HttpMessage m2 = new HttpMessage();
+        HttpParser p2 = new HttpParser(m2);
+
+        String s2 = "POST /hello HTTP/1.1\r\n" +
+                "Host: Goodbye\r\n" +
+                "\r\n";
+        InputStream in2 = new ByteArrayInputStream(s2.getBytes());
+        p2.parseFromStream(in2);
+        assertEquals("POST",m2.getMethod());
     }
 
     @Test

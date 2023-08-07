@@ -10,6 +10,26 @@ import static org.junit.jupiter.api.Assertions.*;
 class HttpMessageTest {
 
     @Test
+    void constructsMethod() {
+        HttpMessage m1 = new HttpMessage();
+        m1.setStartLine("GET / HTTP/1.1");
+        m1.putHeader("Content-Length","5");
+        m1.setBody("hello");
+
+        assertEquals(m1.getMethod(),"GET");
+    }
+
+    @Test
+    void constructsURI() {
+        HttpMessage m1 = new HttpMessage();
+        m1.setStartLine("GET /hi HTTP/1.1");
+        m1.putHeader("Content-Length","5");
+        m1.setBody("hello");
+
+        assertEquals(m1.getURI(),"hi");
+    }
+
+    @Test
     void parsesFromString() throws BadRequestException {
         HttpMessage m1 = new HttpMessage("GET / HTTP/1.1\r\n" +
                 "Host: 127.0.0.1\r\n" +

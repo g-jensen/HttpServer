@@ -51,6 +51,9 @@ public class HttpMessage {
     }
     public void setStartLine(String startLine) {
         this.startLine = startLine;
+        HttpParser p = new HttpParser(this);
+        p.parseMethod(startLine);
+        p.parseURI(startLine);
     }
     public byte[] getBody() {
         return body;
